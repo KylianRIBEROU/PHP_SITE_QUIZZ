@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace DataLoader;
 
-use ExceptionQuizz\ExceptionAucunQuizz;
-use Quizz\Quizz;
-use Quizz\Types\Checkbox;
-use Quizz\Types\Radio;
-use Quizz\Types\Text;
-use Quizz\Question;
-use Quizz\Choix;
-use ExceptionQuizz\ExceptionTypeInconnu;
+use Modeles\ExceptionQuizz\ExceptionAucunQuizz;
+use Modeles\Quizz\Quizz;
+use Modeles\Quizz\Types\Checkbox;
+use Modeles\Quizz\Types\Radio;
+use Modeles\Quizz\Types\Text;
+use Modeles\Quizz\Question;
+use Modeles\Quizz\Choix;
+use Modeles\ExceptionQuizz\ExceptionTypeInconnu;
 
 /**
  * Class qui permet de charger les données

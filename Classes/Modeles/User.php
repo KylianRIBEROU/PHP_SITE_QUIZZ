@@ -1,12 +1,7 @@
 <?php 
 
-// CREATE TABLE IF NOT EXISTS USER (
-//     idUtil INT(11) NOT NULL AUTO_INCREMENT,
-//     username VARCHAR(255) NOT NULL,
-//     password VARCHAR(255) NOT NULL,
-//     admin BOOLEAN NOT NULL DEFAULT 0,
-//     PRIMARY KEY (id)
-// ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+declare(strict_types=1);
+namespace Modeles;
 
 class User {
 

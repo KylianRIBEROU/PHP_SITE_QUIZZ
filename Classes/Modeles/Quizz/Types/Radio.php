@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Quizz\Types;
+namespace Modeles\Quizz\Types;
 
-use Quizz\Type;
+use Modeles\Quizz\Type;
 
 final class Radio extends Type
 {

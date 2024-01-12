@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Quizz;
+namespace Modeles\Quizz;
 
-use Quizz\Type;
-use Quizz\Choix;
+use Modeles\Quizz\Type;
+use Modeles\Quizz\Choix;
 
 /**
  * Class Question

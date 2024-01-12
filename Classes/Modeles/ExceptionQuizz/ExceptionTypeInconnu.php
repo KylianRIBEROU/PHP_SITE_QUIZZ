@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ExceptionQuizz;
+namespace Modeles\ExceptionQuizz;
 
 use Exception;
 
