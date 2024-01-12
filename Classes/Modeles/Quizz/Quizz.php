@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Quizz;
+namespace Modeles\Quizz;
 
 /**
  * Class Quizz
