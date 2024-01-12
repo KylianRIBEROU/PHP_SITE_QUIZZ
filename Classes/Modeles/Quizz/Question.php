@@ -22,11 +22,6 @@ class Question
     private string $label;
 
     /**
-     * Le nombre de points de la question
-     */
-    private int $nombreDePoints;
-
-    /**
      * Le type de la question
      */
     private Type $leType;
@@ -41,15 +36,14 @@ class Question
      * Le constructeur de la classe
      * @param string $id
      * @param string $label
-     * @param int $nombreDePoints
+
      * @param Type $leType
      * @param Choix[] $lesChoix
      */
-    public function __construct(string $id, string $label, int $nombreDePoints, Type $leType, array $lesChoix)
+    public function __construct(string $id, string $label,Type $leType, array $lesChoix)
     {
         $this->id = $id;
         $this->label = $label;
-        $this->nombreDePoints = $nombreDePoints;
         $this->leType = $leType;
         $this->lesChoix = $lesChoix;
     }
@@ -76,10 +70,6 @@ class Question
      * Retourne le nombre de points de la question
      * @return int
      */
-    public function getNombreDePoints(): int
-    {
-        return $this->nombreDePoints;
-    }
 
     /**
      * Retourne le type de la question
