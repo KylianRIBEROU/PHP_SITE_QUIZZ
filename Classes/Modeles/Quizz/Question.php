@@ -14,7 +14,7 @@ class Question
     /**
      * L'identifiant de la question
      */
-    private string $id;
+    private int $id_question;
 
     /**
      * Le libellé de la question
@@ -22,9 +22,9 @@ class Question
     private string $label;
 
     /**
-     * Le type de la question
+     * L'identifiant du type de la question
      */
-    private Type $leType;
+    private int $id_typeQst;
 
     /**
      * Le tableau des choix de la question
@@ -34,27 +34,27 @@ class Question
 
     /**
      * Le constructeur de la classe
-     * @param string $id
+     * @param int $id_question
      * @param string $label
-
-     * @param Type $leType
+     * @param int $id_typeQst
      * @param Choix[] $lesChoix
      */
-    public function __construct(string $id, string $label,Type $leType, array $lesChoix)
+
+    public function __construct(int $id_question, string $label, int $id_typeQst, array $lesChoix)
     {
-        $this->id = $id;
+        $this->id_question = $id_question;
         $this->label = $label;
-        $this->leType = $leType;
+        $this->id_typeQst = $id_typeQst;
         $this->lesChoix = $lesChoix;
     }
 
     /**
-     * Retourne l'id de la question
-     * @return string
+     * Retourne l'identifiant de la question
+     * @return int
      */
-    public function getId(): string
+    public function getId_question(): int
     {
-        return $this->id;
+        return $this->id_question;
     }
 
     /**
@@ -62,22 +62,19 @@ class Question
      * @return string
      */
     public function getLabel(): string
+
     {
         return $this->label;
     }
 
     /**
-     * Retourne le nombre de points de la question
+     * Retourne l'identifiant du type de la question
      * @return int
      */
 
-    /**
-     * Retourne le type de la question
-     * @return Type
-     */
-    public function getLeType(): Type
+    public function getId_typeQst(): int
     {
-        return $this->leType;
+        return $this->id_typeQst;
     }
 
     /**
@@ -88,4 +85,53 @@ class Question
     {
         return $this->lesChoix;
     }
+
+    /**
+     * Modifie le libellé de la question
+     * @param string $label
+     */
+    public function setLabel(string $label): void
+    {
+        $this->label = $label;
+    }
+
+    /**
+     * Modifie l'identifiant du type de la question
+     * @param int $id_typeQst
+     */
+    public function setId_typeQst(int $id_typeQst): void
+    {
+        $this->id_typeQst = $id_typeQst;
+    }
+    
+    /**
+     * Modifie le tableau des choix de la question
+     * @param Choix[] $lesChoix
+     */
+    public function setLesChoix(array $lesChoix): void
+    {
+        $this->lesChoix = $lesChoix;
+    }
+
+    /**
+     * Ajoute un choix au tableau des choix de la question
+     * @param Choix $choix
+     */
+    public function addChoix(Choix $choix): void
+    {
+        $this->lesChoix[] = $choix;
+    }
+
+    /**
+     * Supprime un choix du tableau des choix de la question
+     * @param Choix $choix
+     */
+    public function removeChoix(Choix $choix): void
+    {
+        $index = array_search($choix, $this->lesChoix);
+        if ($index !== false) {
+            unset($this->lesChoix[$index]);
+        }
+    }
+    
 }

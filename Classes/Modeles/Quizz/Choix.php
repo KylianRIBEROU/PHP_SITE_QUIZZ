@@ -8,6 +8,12 @@ namespace Modeles\Quizz;
  */
 class Choix
 {
+
+    /**
+     * l'id du choix
+     */
+    private int $id_choix;
+
     /**
      * Le libellé du choix
      */
@@ -19,14 +25,32 @@ class Choix
     private bool $isCorrect;
 
     /**
+     * L'id de la question
+     */
+    private int $id_question;
+
+    /**
      * Le constructeur de la classe
+     * @param int $id_choix
      * @param string $label
      * @param bool $isCorrect
+     * @param int $id_question
      */
-    public function __construct(string $label, bool $isCorrect)
+    public function __construct(int $id_choix , string $label, bool $isCorrect, int $id_question)
     {
+        $this->id_choix = $id_choix;
         $this->label = $label;
         $this->isCorrect = $isCorrect;
+        $this->id_question = $id_question;
+    }
+
+    /**
+     * Retourne l'id du choix
+     * @return int
+     */
+    public function getId_choix(): int
+    {
+        return $this->id_choix;
     }
 
     /**
@@ -64,4 +88,23 @@ class Choix
     {
         $this->isCorrect = $isCorrect;
     }
+
+    /**
+     * Retourne l'id de la question
+     * @return int
+     */
+    public function getId_question(): int
+    {
+        return $this->id_question;
+    }
+
+    /**
+     * Modifie l'id de la question
+     * @param int $id_question
+     */
+    public function setId_question(int $id_question): void
+    {
+        $this->id_question = $id_question;
+    }
+
 }
