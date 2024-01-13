@@ -32,10 +32,52 @@ class QuizzBD {
         return $quizz;
     }
 
+    public function getAllQuizz(): array {
+        $stmt = $this->db->prepare("SELECT * FROM QUIZZ");
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $quizzs = [];
+        foreach ($result as $quizz) {
+            $quizzs[] = new Quizz($quizz['idQuizz'], $quizz['titre_quizz'], $quizz['description'], $quizz['type_id'], $quizz['user_id']);
+        }
+
+        return $quizzs;
+    }
+
+    /**
+     * Renvoie une liste avec tous les quizz créés par un utilisateur
+     */
+    public function getQuizzsByUserId(int $userId): array {
+        $stmt = $this->db->prepare("SELECT * FROM QUIZZ WHERE user_id = ?");
+        $stmt->execute([$userId]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $quizzs = [];
+        foreach ($result as $quizz) {
+            $quizzs[] = new Quizz($quizz['idQuizz'], $quizz['titre_quizz'], $quizz['description'], $quizz['type_id'], $quizz['user_id']);
+        }
+
+        return $quizzs;
+    }
+
+    /**
+     * Donne le nombre de quizz créés par un utilisateur
+     */
+    public function countQuizzsByUserId(int $userId): int {
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM QUIZZ WHERE user_id = ?");
+        $stmt->execute([$userId]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return (int) $result['COUNT(*)'];
+    }
+
+    
     public function updateQuizz(int $quizzId, string $titreQuizz, string $description, int $typeId, int $userId): void {
         $stmt = $this->db->prepare("UPDATE QUIZZ SET titre_quizz = ?, description = ?, type_id = ?, user_id = ? WHERE idQuizz = ?");
         $stmt->execute([$titreQuizz, $description, $typeId, $userId, $quizzId]);
     }
+
+
 
     public function deleteQuizz(int $quizzId): void {
         // delete en cascade les questions et les choix

@@ -5,6 +5,13 @@ declare(strict_types=1);
 namespace ModelesBD;
 
 use PDO;
+use Modeles\Quizz\Type;
+use Modeles\Quizz\Types\TypeQuestion\Text;
+use Modeles\Quizz\Types\TypeQuestion\Radio;
+use Modeles\Quizz\Types\TypeQuestion\Checkbox;
+
+
+//TODO: pas fait les types de question, tout est a faire ( leur type, leur rendu en HTML, ....)
 class TypeQuestionBD {
     private $db;
 
@@ -17,12 +24,22 @@ class TypeQuestionBD {
         $stmt->execute([$typeQst]);
     }
 
-    //TODO : mettre un TypeQuestion en retour
-    public function getTypeQuestionById(int $typeQstId): ?array {
+    public function getTypeQuestionById(int $typeQstId): Type {
         $stmt = $this->db->prepare("SELECT * FROM TYPEQUESTION WHERE idTypeQst = ?");
         $stmt->execute([$typeQstId]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result !== false ? $result : null;
+        $result_type = $result['typeQst'];
+        if ($result === false) {
+            return null; // Aucun type trouvé avec cet ID
+        }
+        if ($result_type === 'text') {
+            $typeQuestion = new Text($result['idTypeQst']);
+        } elseif ($result_type === 'radio') {
+            $typeQuestion = new Radio($result['idTypeQst']);
+        } elseif ($result_type === 'checkbox') {
+            $typeQuestion = new Checkbox($result['idTypeQst']);
+        }
+        return $typeQuestion;
     }
 
     public function updateTypeQuestion(int $typeQstId, string $typeQst): void {

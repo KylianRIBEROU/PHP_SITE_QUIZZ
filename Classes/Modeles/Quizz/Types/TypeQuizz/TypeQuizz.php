@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modeles\Quizz\Types\TypeQuizz;
 
-class TypeQuizzModel {
+class TypeQuizz {
     public int $idType;
     public string $typeQ;
 

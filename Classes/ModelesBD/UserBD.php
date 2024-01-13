@@ -18,11 +18,12 @@ class UserBD {
 
     public function createUser(string $username, string $password, bool $admin = false): void {
         $stmt = $this->db->prepare("INSERT INTO USER (username, password, admin) VALUES (?, ?, ?)");
+        $admin = $admin ? '1' : '0';
         $stmt->execute([$username, $password, $admin]);
     }
 
     public function getUserById(int $userId): User {
-        $stmt = $this->db->prepare("SELECT * FROM USER WHERE idUtil = ?");
+        $stmt = $this->db->prepare("SELECT * FROM USER WHERE idUser = ?");
         $stmt->execute([$userId]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -30,6 +31,20 @@ class UserBD {
     
         $user = new User($result['idUser'], $result['username'], $result['password'], $admin);
         return $user;
+    }
+
+    public function getAllUsers(): array {
+        $stmt = $this->db->prepare("SELECT * FROM USER");
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $users = [];
+        foreach ($result as $user) {
+            $admin = $user['admin'] === '1' ? true : false;
+            $users[] = new User($user['idUser'], $user['username'], $user['password'], $admin);
+        }
+
+        return $users;
     }
 
     public function updateUser(int $userId, string $username, string $password, bool $admin): void {

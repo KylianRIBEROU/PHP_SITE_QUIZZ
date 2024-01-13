@@ -77,5 +77,28 @@ class Quizz
     {
         $this->id_user = $id_user;
     }
+
+    public function __toString(): string
+    {
+        return $this->render();
+    }
+
+    public function render(): string
+    {
+        return sprintf(
+            '<div class="quizz">
+                <p>id : %s</p>
+                <p>titre : %s</p>
+                <p>description : %s</p>
+                <p>id_typeQuizz : %s</p>
+                <p>id_user : %s</p>
+            </div>',
+            $this->id_quizz,
+            $this->titre_quizz,
+            $this->description_quizz,
+            $this->id_typeQuizz,
+            $this->id_user
+        );
+    }
 }
 

@@ -66,7 +66,7 @@ class QuestionBD {
     
         $questions = [];
         foreach ($result as $row) {
-            $questions[] = new Question($row['idQst'], $row['titreQst'], $row['quizz_id']);
+            $questions[] = new Question($row['idQst'], $row['labelQst'], $row['quizz_id']);
         }
         return $questions;
     }
