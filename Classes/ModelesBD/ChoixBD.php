@@ -13,9 +13,11 @@ class ChoixBD {
         $this->db = $db;
     }
 
-    public function createChoix(string $labelChoix, int $questionId): void {
-        $stmt = $this->db->prepare("INSERT INTO CHOIX (labelChoix, question_id) VALUES (?, ?)");
-        $stmt->execute([$labelChoix, $questionId]);
+    public function createChoix(string $labelChoix, int $questionId, bool $bonneReponse): void {
+        $bonneRep = $bonneReponse ? 1 : 0;
+
+        $stmt = $this->db->prepare("INSERT INTO CHOIX (labelChoix, question_id, bonneReponse) VALUES (?, ?, ?)");
+        $stmt->execute([$labelChoix, $questionId, $bonneRep]);
     }
 
     public function getChoixById(int $choixId): Choix {
@@ -32,13 +34,33 @@ class ChoixBD {
         return $choix;
     }
 
-    public function updateChoix(int $choixId, string $labelChoix, int $questionId): void {
-        $stmt = $this->db->prepare("UPDATE CHOIX SET labelChoix = ?, question_id = ? WHERE idChoix = ?");
-        $stmt->execute([$labelChoix, $questionId, $choixId]);
+    public function updateChoix(int $choixId, string $labelChoix, int $questionId, bool $bonneReponse): void {
+        $bonneRep = $bonneReponse ? 1 : 0;
+        $stmt = $this->db->prepare("UPDATE CHOIX SET labelChoix = ?, question_id = ?, bonneReponse = ? WHERE idChoix = ?");
+        $stmt->execute([$labelChoix, $questionId, $bonneRep, $choixId]);
     }
 
     public function deleteChoix(int $choixId): void {
         $stmt = $this->db->prepare("DELETE FROM CHOIX WHERE idChoix = ?");
         $stmt->execute([$choixId]);
     }
+
+    public function deleteChoixByQuestionId(int $questionId): void {
+        $stmt = $this->db->prepare("DELETE FROM CHOIX WHERE question_id = ?");
+        $stmt->execute([$questionId]);
+    }
+
+    public function getChoixByQuestionId(int $questionId): array {
+        $stmt = $this->db->prepare("SELECT * FROM CHOIX WHERE question_id = ?");
+        $stmt->execute([$questionId]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        $choix = [];
+        foreach ($result as $row) {
+            $choix[] = new Choix($row['idChoix'], $row['labelChoix'], $row['bonneReponse'],$row['question_id']);
+        }
+        
+        return $choix;
+    }
+
 }

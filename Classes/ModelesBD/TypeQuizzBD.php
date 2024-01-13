@@ -5,6 +5,8 @@ declare (strict_types = 1);
 namespace ModelesBD;
 
 use PDO;
+use Modeles\Quizz\Types\TypeQuizz\TypeQuizz;
+
 class TypeQuizzBD {
     private $db;
 
@@ -17,12 +19,15 @@ class TypeQuizzBD {
         $stmt->execute([$typeQ]);
     }
 
-    public function getTypeQuizzById(int $typeId): ?array {
+    public function getTypeQuizzById(int $typeId): TypeQuizz {
         $stmt = $this->db->prepare("SELECT * FROM TYPEQUIZZ WHERE idType = ?");
         $stmt->execute([$typeId]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        // RESULTAT EST UNE LIGNE DE LA TABLE TYPEQUIZZ. ON DOIT LA TRANSFORMER EN OBJET TYPEQUIZZ
-        return $result;
+        if ($result === false) {
+            return null; // Aucun type trouvé avec cet ID
+        }
+        $typeQuizz = new TypeQuizz($result['idType'], $result['typeQ']);
+        return $typeQuizz;
     }
 
     public function updateTypeQuizz(int $typeId, string $typeQ): void {
@@ -33,5 +38,27 @@ class TypeQuizzBD {
     public function deleteTypeQuizz(int $typeId): void {
         $stmt = $this->db->prepare("DELETE FROM TYPEQUIZZ WHERE idType = ?");
         $stmt->execute([$typeId]);
+    }
+
+    public function getAllTypeQuizz(): array {
+        $stmt = $this->db->prepare("SELECT * FROM TYPEQUIZZ");
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $liste_typeQuizz = [];
+        foreach ($result as $row) {
+            $liste_typeQuizz[] = new TypeQuizz($row['idType'], $row['typeQ']);
+        }
+        return $liste_typeQuizz;
+    }
+
+    public function getTypeQuizzByType(string $typeQ): TypeQuizz {
+        $stmt = $this->db->prepare("SELECT * FROM TYPEQUIZZ WHERE typeQ = ?");
+        $stmt->execute([$typeQ]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result === false) {
+            return null; // Aucun type trouvé avec cet ID
+        }
+        $typeQuizz = new TypeQuizz($result['idType'], $result['typeQ']);
+        return $typeQuizz;
     }
 }

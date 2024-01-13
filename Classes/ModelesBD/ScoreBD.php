@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ModelesBD;
 
+use Modeles\Quizz\Score;
 use PDO;
 class ScoreBD {
     private $db;
@@ -32,5 +33,29 @@ class ScoreBD {
     public function deleteScore(int $scoreId): void {
         $stmt = $this->db->prepare("DELETE FROM SCORE WHERE idScore = ?");
         $stmt->execute([$scoreId]);
+    }
+
+    public function getScoresByUserId(int $userId): array {
+        $stmt = $this->db->prepare("SELECT * FROM SCORE WHERE user_id = ?");
+        $stmt->execute([$userId]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        $score = [];
+        foreach ($result as $row) {
+            $score[] = new Score($row['idScore'], $row['score'], $row['user_id'], $row['quizz_id']);
+        }
+        return $score;
+    }
+
+    public function getScoresByQuizzId(int $quizzId): array {
+        $stmt = $this->db->prepare("SELECT * FROM SCORE WHERE quizz_id = ?");
+        $stmt->execute([$quizzId]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        $score = [];
+        foreach ($result as $row) {
+            $score[] = new Score($row['idScore'], $row['score'], $row['user_id'], $row['quizz_id']);
+        }
+        return $score;
     }
 }

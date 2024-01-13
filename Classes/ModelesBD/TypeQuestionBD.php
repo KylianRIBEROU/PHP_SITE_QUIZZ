@@ -17,6 +17,7 @@ class TypeQuestionBD {
         $stmt->execute([$typeQst]);
     }
 
+    //TODO : mettre un TypeQuestion en retour
     public function getTypeQuestionById(int $typeQstId): ?array {
         $stmt = $this->db->prepare("SELECT * FROM TYPEQUESTION WHERE idTypeQst = ?");
         $stmt->execute([$typeQstId]);

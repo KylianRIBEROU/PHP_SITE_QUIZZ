@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace Modeles\Quizz;
 
-use Modeles\Quizz\Type;
-use Modeles\Quizz\Choix;
 
 /**
  * Class Question
@@ -26,26 +24,21 @@ class Question
      */
     private int $id_typeQst;
 
-    /**
-     * Le tableau des choix de la question
-     * @var Choix[]
-     */
-    private array $lesChoix;
+
 
     /**
      * Le constructeur de la classe
      * @param int $id_question
      * @param string $label
      * @param int $id_typeQst
-     * @param Choix[] $lesChoix
+
      */
 
-    public function __construct(int $id_question, string $label, int $id_typeQst, array $lesChoix)
+    public function __construct(int $id_question, string $label, int $id_typeQst)
     {
         $this->id_question = $id_question;
         $this->label = $label;
         $this->id_typeQst = $id_typeQst;
-        $this->lesChoix = $lesChoix;
     }
 
     /**
@@ -81,10 +74,6 @@ class Question
      * Retourne le tableau des choix de la question
      * @return Choix[]
      */
-    public function getLesChoix(): array
-    {
-        return $this->lesChoix;
-    }
 
     /**
      * Modifie le libellé de la question
@@ -102,36 +91,6 @@ class Question
     public function setId_typeQst(int $id_typeQst): void
     {
         $this->id_typeQst = $id_typeQst;
-    }
-    
-    /**
-     * Modifie le tableau des choix de la question
-     * @param Choix[] $lesChoix
-     */
-    public function setLesChoix(array $lesChoix): void
-    {
-        $this->lesChoix = $lesChoix;
-    }
-
-    /**
-     * Ajoute un choix au tableau des choix de la question
-     * @param Choix $choix
-     */
-    public function addChoix(Choix $choix): void
-    {
-        $this->lesChoix[] = $choix;
-    }
-
-    /**
-     * Supprime un choix du tableau des choix de la question
-     * @param Choix $choix
-     */
-    public function removeChoix(Choix $choix): void
-    {
-        $index = array_search($choix, $this->lesChoix);
-        if ($index !== false) {
-            unset($this->lesChoix[$index]);
-        }
     }
     
 }

@@ -11,6 +11,8 @@ class ConnectionBD{
     public function __construct(string $username, string $password){
         $this->username = $username;
         $this->password = $password;
+
+        $this->connect();
     }
 
     public function connect(): PDO{
@@ -20,6 +22,14 @@ class ConnectionBD{
         } catch (PDOException $e) {
             echo 'Erreur de connexion : ' . $e->getMessage();
         }
+        return $this->pdo;
+    }
+
+    public function disconnect(): void{
+        $this->pdo = null;
+    }
+
+    public function getPDO(): PDO{
         return $this->pdo;
     }
 }
