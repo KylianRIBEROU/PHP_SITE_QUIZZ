@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kil's quizz</title>
     <link rel="stylesheet" href="Assets/css/base.css"> <!-- Ajoutez cette ligne pour inclure le fichier CSS -->
+    <link rel="stylesheet" href="Assets/css/connexion.css">
 </head>
 <body>
 
@@ -14,12 +15,7 @@
 require 'Classes/Autoloader/autoloader.php'; 
 Autoloader::register(); 
 
-require 'templates/navBar.php';
-
-echo "<p>test</p>";
-
-
-
+require 'templates/accueil.php';
 ?>
 
 </body>
