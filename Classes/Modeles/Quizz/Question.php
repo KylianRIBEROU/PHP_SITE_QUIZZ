@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace Modeles\Quizz;
 
-use Modeles\Quizz\Type;
-use Modeles\Quizz\Choix;
 
 /**
  * Class Question
@@ -14,7 +12,7 @@ class Question
     /**
      * L'identifiant de la question
      */
-    private string $id;
+    private int $id_question;
 
     /**
      * Le libellé de la question
@@ -22,39 +20,34 @@ class Question
     private string $label;
 
     /**
-     * Le type de la question
+     * L'identifiant du type de la question
      */
-    private Type $leType;
+    private int $id_typeQst;
 
-    /**
-     * Le tableau des choix de la question
-     * @var Choix[]
-     */
-    private array $lesChoix;
+
 
     /**
      * Le constructeur de la classe
-     * @param string $id
+     * @param int $id_question
      * @param string $label
+     * @param int $id_typeQst
 
-     * @param Type $leType
-     * @param Choix[] $lesChoix
      */
-    public function __construct(string $id, string $label,Type $leType, array $lesChoix)
+
+    public function __construct(int $id_question, string $label, int $id_typeQst)
     {
-        $this->id = $id;
+        $this->id_question = $id_question;
         $this->label = $label;
-        $this->leType = $leType;
-        $this->lesChoix = $lesChoix;
+        $this->id_typeQst = $id_typeQst;
     }
 
     /**
-     * Retourne l'id de la question
-     * @return string
+     * Retourne l'identifiant de la question
+     * @return int
      */
-    public function getId(): string
+    public function getId_question(): int
     {
-        return $this->id;
+        return $this->id_question;
     }
 
     /**
@@ -62,30 +55,42 @@ class Question
      * @return string
      */
     public function getLabel(): string
+
     {
         return $this->label;
     }
 
     /**
-     * Retourne le nombre de points de la question
+     * Retourne l'identifiant du type de la question
      * @return int
      */
 
-    /**
-     * Retourne le type de la question
-     * @return Type
-     */
-    public function getLeType(): Type
+    public function getId_typeQst(): int
     {
-        return $this->leType;
+        return $this->id_typeQst;
     }
 
     /**
      * Retourne le tableau des choix de la question
      * @return Choix[]
      */
-    public function getLesChoix(): array
+
+    /**
+     * Modifie le libellé de la question
+     * @param string $label
+     */
+    public function setLabel(string $label): void
     {
-        return $this->lesChoix;
+        $this->label = $label;
     }
+
+    /**
+     * Modifie l'identifiant du type de la question
+     * @param int $id_typeQst
+     */
+    public function setId_typeQst(int $id_typeQst): void
+    {
+        $this->id_typeQst = $id_typeQst;
+    }
+    
 }

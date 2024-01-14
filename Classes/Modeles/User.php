@@ -55,6 +55,13 @@ class User {
 
     // copilot a fait ça, pas moi, a vérifier
     public function render(): string{
+        if ($this->admin){
+            $estAdmin = "Oui";
+        }
+        else{
+            $estAdmin = "Non";
+        }
+
         return sprintf(
             '<div class="user">
                 <p>id : %s</p>
@@ -65,6 +72,6 @@ class User {
             $this->id,
             $this->username,
             $this->password,
-            $this->admin);
+            $estAdmin);
     }
 }

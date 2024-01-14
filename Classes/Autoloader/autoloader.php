@@ -1,13 +1,24 @@
-<?php 
+<?php
 
-class Autoloader {
+/**
+ * Class Autoloader
+ */
+class Autoloader{
 
-    static function register () {
+    /**
+     * Enregistre notre autoloader
+     */
+    static function register(){
         spl_autoload_register(array(__CLASS__, 'autoload'));
     }
 
-    static function autoload ($fcqn) {
-        $path = str_replace('\\', '/', $fcqn);
-        require '_inc/Classes/' . $path . '.php'; // auto complète le chemin
-    }   
+    /**
+     * Inclue le fichier correspondant à notre classe
+     * @param $class string Le nom de la classe à charger
+     */
+    static function autoload($fqcn){
+        $path = str_replace('\\', '/', $fqcn);
+        require 'Classes/' . $path . '.php';
+    }
+
 }

@@ -7,12 +7,12 @@ use UserInput\InputRenderInterface;
 
 class RadioButton implements InputRenderInterface{
 
-    private $name;
-    private $value;
+    private string $name;
+    private string $value;
     
-    private $id;
+    private string $id;
 
-    private $label;
+    private string $label;
 
     public function __construct(string $name, string $value, string $id, string $label){
         $this->name = $name;
