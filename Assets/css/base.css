@@ -49,3 +49,68 @@
     text-decoration: none;
     border: none;
 }
+
+.title-accueil{
+    font-family: Inter;
+    font-size: 60px;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.quizz{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: #000 solid 3px;
+    padding-top: 30px;
+    margin-bottom: 30px;
+}
+
+.infos{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.play-button{
+    width: 258px;
+    height: 59px;
+    border-radius: 15px;
+    background: #34B6FF;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.play-img{
+    width: 41px;
+    height: 37px;
+}
+
+
+.name{
+    font-family: Inter;
+    font-size: 26px;
+}
+
+.author{
+    font-family: Inter;
+    font-size: 18px;    
+}
+
+.description{
+    font-family: Inter;
+    font-size: 18px;
+}

@@ -2,6 +2,11 @@
 
 // connexion a la BD avec PDO 
 
+namespace App;
+
+use PDO;
+use PDOException;
+
 class ConnectionBD{
 
     private $username;

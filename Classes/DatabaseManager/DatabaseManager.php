@@ -32,7 +32,6 @@ class DataBaseManager {
 
     public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
-
         $this->typeQuestionBD = new TypeQuestionBD($pdo);
         $this->typeQuizzBD = new TypeQuizzBD($pdo);
         $this->choixBD = new ChoixBD($pdo);
@@ -45,6 +44,35 @@ class DataBaseManager {
     public function getPDO(): PDO {
         return $this->pdo;
     }
+
+    public function getUserBD(): UserBD {
+        return $this->userBD;
+    }
+
+    public function getQuizzBD(): QuizzBD {
+        return $this->quizzBD;
+    }
+
+    public function getChoixBD(): ChoixBD {
+        return $this->choixBD;
+    }
+
+    public function getScoreBD(): ScoreBD {
+        return $this->scoreBD;
+    }
+
+    public function getQuestionBD(): QuestionBD {
+        return $this->questionBD;
+    }
+
+    public function getTypeQuestionBD(): TypeQuestionBD {
+        return $this->typeQuestionBD;
+    }
+
+    public function getTypeQuizzBD(): TypeQuizzBD {
+        return $this->typeQuizzBD;
+    }
+
 
     // et donc ici on appellera les méthodes qu'on veut de toutes les classes BD
     // ca fait un peu de redondance de code mais au moins on a qu'une seule classe à instancier partout
