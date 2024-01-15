@@ -97,6 +97,7 @@ h2{
     font-family: Inter;
     font-size: 16px;
     text-align: center;
+    cursor: pointer;
 }
 
 .quizz-profil{
@@ -119,6 +120,7 @@ h2{
     border: none;
     color: #fff;
     text-align: center;
+    cursor: pointer;
 }
 
 .moyenne-score{

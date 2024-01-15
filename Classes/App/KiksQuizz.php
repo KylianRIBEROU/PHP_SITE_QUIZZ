@@ -88,4 +88,10 @@ class KiksQuizz {
         $quizzs = $this->dbManager->getQuizzBD()->getAllQuizz();
         require 'templates/accueil.php';
     }
+
+    public function afficheQuizz(int $idQuizz): void {
+        $quizz = $this->dbManager->getQuizzBD()->getQuizzById($idQuizz);
+        $questions = $this->dbManager->getQuestionBD()->getQuestionsByQuizzId($idQuizz);
+        require 'templates/quizz.php';
+    }
 }

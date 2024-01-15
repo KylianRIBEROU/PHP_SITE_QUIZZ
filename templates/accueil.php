@@ -27,7 +27,7 @@ foreach ($quizzs as $quizz) {
         echo '</div>';
 
         echo '<div class="play">';
-            echo '<a href="" class="play-button">Démarrer';
+            echo '<a href="quizz.php?idQuizz='.$quizz->getId_quizz().'" class="play-button">Démarrer';
             echo '<img src="Assets/img/play.png" alt="play" class="play-img">';
             echo '</a>';
         echo '</div>';

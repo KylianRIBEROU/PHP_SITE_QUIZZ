@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kik's quizz</title>
     <link rel="stylesheet" href="Assets/css/base.css">
-    <link rel="stylesheet" href="Assets/css/connexion.css">
-    <link rel="stylesheet" href="Assets/css/profil.css">
+    <link rel="stylesheet" href="Assets/css/quizz.css">
 </head>
 <body>
 
@@ -19,27 +18,17 @@ require 'Classes/Autoloader/autoloader.php';
 Autoloader::register(); 
 
 use App\KiksQuizz;
-// Initialisation de la class qui gère l'application
+
 session_start();
 
+// Initialisation de la class qui gère l'application
 $app = new KiksQuizz();
 $user = $app->getUser();
+$idQuizz = $_GET['idQuizz'];
 
-if (isset($_POST['username']) && isset($_POST['password'])) {
-    $connected = $app->connexion($_POST['username'], $_POST['password']);
-    if ($connected) {
-        $app->afficheAccueil();
-    }
-    else{
-        $app->afficheConnexion();
-    }
+if (isset($user)) {
+    $app->afficheQuizz(number_format($idQuizz));
 }
 else{
     $app->afficheConnexion();
 }
-
-?>
-
-
-</body>
-</html>

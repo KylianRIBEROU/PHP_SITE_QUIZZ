@@ -22,7 +22,7 @@ echo '<div class="container-profil">';
                     echo '</div>';
                     echo '<div class="right-profil">';
                         echo '<p class="score">' . $uneParticipation->getScore() . '/'.count($lesQuestions).'</p>';
-                        echo '<button class="btn-blue">Refaire</button>';
+                        echo '<button onclick="window.location.href=\'quizz.php?idQuizz='.$quizz->getId_quizz().'\'" class="btn-blue">Rejouer</button>';
                     echo '</div>';
                 echo '</div>';
             }
