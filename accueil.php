@@ -17,11 +17,6 @@ require 'Classes/Autoloader/autoloader.php';
 Autoloader::register(); 
 
 use App\KiksQuizz;
-
-
-// On démarre la session
-session_start();
-session_destroy();
 session_start();
 
 

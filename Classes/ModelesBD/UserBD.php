@@ -16,6 +16,21 @@ class UserBD {
         $this->quizzBD = $quizzBD;
     }
 
+    public function connexion(string $username, string $password): ?User {
+        $stmt = $this->db->prepare("SELECT * FROM USER WHERE username = ?");
+        $stmt->execute([$username]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result !== false) {
+            if ($result['password'] === $password) {
+                $admin = $result['admin'] === '1' ? true : false;
+                $user = new User($result['idUser'], $result['username'], $result['password'], $admin);
+                return $user;
+            }
+        }
+        return null;
+    }
+
     public function createUser(string $username, string $password, bool $admin = false): void {
         $stmt = $this->db->prepare("INSERT INTO USER (username, password, admin) VALUES (?, ?, ?)");
         $admin = $admin ? '1' : '0';

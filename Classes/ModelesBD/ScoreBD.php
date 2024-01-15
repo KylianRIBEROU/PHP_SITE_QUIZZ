@@ -39,7 +39,7 @@ class ScoreBD {
         $stmt = $this->db->prepare("SELECT * FROM SCORE WHERE user_id = ?");
         $stmt->execute([$userId]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
         $score = [];
         foreach ($result as $row) {
             $score[] = new Score($row['idScore'], $row['score'], $row['user_id'], $row['quizz_id']);
@@ -51,11 +51,18 @@ class ScoreBD {
         $stmt = $this->db->prepare("SELECT * FROM SCORE WHERE quizz_id = ?");
         $stmt->execute([$quizzId]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
         $score = [];
         foreach ($result as $row) {
             $score[] = new Score($row['idScore'], $row['score'], $row['user_id'], $row['quizz_id']);
         }
         return $score;
+    }
+
+    public function getMoyenneByQuizzId(int $quizzId): float {
+        $stmt = $this->db->prepare("SELECT AVG(score) FROM SCORE WHERE quizz_id = ?");
+        $stmt->execute([$quizzId]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return floatval(number_format(floatval($result['AVG(score)']), 2));
     }
 }

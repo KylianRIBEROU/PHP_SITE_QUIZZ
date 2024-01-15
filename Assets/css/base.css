@@ -14,8 +14,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 20px;
-    padding-right: 20px;
 }
 
 .img-user{
@@ -36,6 +34,7 @@
     font-family: Inter;
     font-size: 30px;
     text-decoration: none;
+    margin-left: 20px;
 }
 
 .btn-add{

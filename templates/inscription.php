@@ -6,7 +6,7 @@ include 'templates/navBar.php';
 echo '<div class="container">';
     echo '<div class="form">';
         echo '<div class="top">';
-            echo '<a><img class="img-back" src="Assets/img/back.png"></a>';
+            echo '<a href="/connexion.php"><img class="img-back" src="Assets/img/back.png"></a>';
             echo '<h1 class="title">Inscription</h1>';
         echo '</div>';
         echo '<form class="form2" method="post">';

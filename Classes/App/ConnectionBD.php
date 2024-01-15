@@ -13,7 +13,7 @@ class ConnectionBD{
     private $password;
     private $pdo;
 
-    public function __construct(string $username, string $password){
+    public function __construct(string $username="baptched", string $password="baptched"){
         $this->username = $username;
         $this->password = $password;
 

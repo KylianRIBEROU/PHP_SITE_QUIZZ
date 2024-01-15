@@ -10,6 +10,7 @@
 <body>
 
 
+
 <?php
 // SPL autoloader
 
@@ -18,18 +19,26 @@ Autoloader::register();
 
 use App\KiksQuizz;
 
-
-// On démarre la session
 session_start();
-session_destroy();
-session_start();
-
 
 // Initialisation de la class qui gère l'application
 $app = new KiksQuizz();
-$app->afficheAccueil();
+
+if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['password2'])) {
+    $inscrit =  $app->inscription($_POST['username'], $_POST['password'], $_POST['password2']);
+    if ($inscrit) {
+        $app->afficheConnexion();
+    }
+    else{
+        $app->afficheInscription();
+    }
+}
+else{
+    $app->afficheInscription();
+}
 
 ?>
+
 
 </body>
 </html>

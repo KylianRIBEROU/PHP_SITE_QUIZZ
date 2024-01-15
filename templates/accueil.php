@@ -5,7 +5,12 @@ include 'templates/navBar.php';
 
 echo '<div class="container">';
     echo '<div class="top">';
-        echo '<h1 class="title-accueil">Bienvenue sur KiksQuizz</h1>';
+        if (isset($this->user)) {
+            echo '<h1 class="title-accueil">Bienvenue '. $this->user->getUsername() .'</h1>';
+        }
+        else{
+            echo '<h1 class="title-accueil">Bienvenue sur KiksQuizz</h1>';
+        }
     echo '</div>';
 
 // les quizzs $quizzs
@@ -28,9 +33,5 @@ foreach ($quizzs as $quizz) {
         echo '</div>';
     echo '</div>';
 }
-
-
-
-
 
 echo '</div>';

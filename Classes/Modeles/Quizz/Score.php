@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modeles\Quizz;
 
-class ScoreModel {
+class Score {
 
     public int $idScore;
     public int $score;
