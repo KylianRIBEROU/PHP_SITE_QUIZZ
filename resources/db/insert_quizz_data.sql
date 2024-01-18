@@ -25,19 +25,17 @@ INSERT INTO QUIZZ (titre_quizz, description, type_id, user_id) VALUES
 
 INSERT INTO QUESTION (labelQst, typeQst_id, quizz_id) VALUES
     ('Quelle discipline pratique Panagiotis Taridini ?',1, 1),
-    ('Combien de coupes du monde la france a gagné au Football',1, 1),
-    ('Quel sportif est communément appelé Noisette sur les réseaux sociaux',1, 1);
+    ('Combien de coupes du monde la france a gagné au Football',2, 1),
+    ('Quel sportif est communément appelé Noisette sur les réseaux sociaux',3, 1);
 
 INSERT INTO CHOIX (labelChoix, question_id, bonneReponse) VALUES
     ('Bodybuilding', 1, 0),
     ('Streetlifting', 1, 0),
     ('Powerlifting', 1, 1),
     ('1', 2, 0),
-    ('2', 2, 0),
-    ('3', 2, 1),
-    ('Kylian Mbappé', 3, 1),
-    ('Dembélé', 3, 0),
-    ('Ngolo Kanté', 3, 0);
+    ('2', 2, 1),
+    ('3', 2, 0),
+    ('Kylian Mbappé', 3, 1);
 
 
 INSERT INTO QUIZZ (titre_quizz, description, type_id, user_id) VALUES

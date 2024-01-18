@@ -92,6 +92,39 @@ class KiksQuizz {
     public function afficheQuizz(int $idQuizz): void {
         $quizz = $this->dbManager->getQuizzBD()->getQuizzById($idQuizz);
         $questions = $this->dbManager->getQuestionBD()->getQuestionsByQuizzId($idQuizz);
+        $numQuestion = 1;
+        foreach ($questions as $question) {
+            $choix = $this->dbManager->getChoixBD()->getChoixByQuestionId($question->getId_question());
+            $question->setChoix($choix);
+            $question->setNumQuestion($numQuestion);
+            $numQuestion++;
+        }
+        $choixBD = $this->dbManager->getChoixBD();
         require 'templates/quizz.php';
+    }
+
+    public function afficheCorrection(int $idQuizz, array $lesReponses): void {
+        $quizz = $this->dbManager->getQuizzBD()->getQuizzById($idQuizz);
+        $questions = $this->dbManager->getQuestionBD()->getQuestionsByQuizzId($idQuizz);
+        $numQuestion = 1;
+        foreach ($questions as $question) {
+            $choix = $this->dbManager->getChoixBD()->getChoixByQuestionId($question->getId_question());
+            $question->setChoix($choix);
+            $question->setNumQuestion($numQuestion);
+            $numQuestion++;
+        }
+        $score = 0;
+        foreach ($lesReponses as $idQuestion => $reponse) {
+            foreach ($questions as $question) {
+                if ($question->getId_question() == $idQuestion) {
+                    if ($question->isCorrect($reponse)) {
+                        $score++;
+                        $question->setIsCorrect(true);
+                    }
+                }
+            }
+        }
+        $this->dbManager->getScoreBD()->createScore($score, $this->user->getId(), $idQuizz);
+        require 'templates/correction.php';
     }
 }

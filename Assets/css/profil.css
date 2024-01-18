@@ -21,13 +21,15 @@ h2{
 .participations{
     flex-basis: 50%;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
     border-right: 2px solid #000;
     height: 100%;
     flex-direction: column;
     gap: 30px;
+    overflow-y: scroll;
 }
 
 .quizzs{

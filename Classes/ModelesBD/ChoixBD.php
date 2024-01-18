@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace ModelesBD;
 
 use Modeles\Quizz\Choix;
+use Modeles\Quizz\Types\TypeChoix\Checkbox;
+use Modeles\Quizz\Types\TypeChoix\Radio;
+use Modeles\Quizz\Types\TypeChoix\Text;
 use PDO;
+
 class ChoixBD {
     private $db;
 
@@ -20,7 +24,7 @@ class ChoixBD {
         $stmt->execute([$labelChoix, $questionId, $bonneRep]);
     }
 
-    public function getChoixById(int $choixId): Choix {
+    public function getChoixById(int $choixId): ?Choix {
         $stmt = $this->db->prepare("SELECT * FROM CHOIX WHERE idChoix = ?");
         $stmt->execute([$choixId]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -51,13 +55,28 @@ class ChoixBD {
     }
 
     public function getChoixByQuestionId(int $questionId): array {
+        $stmt = $this->db->prepare("SELECT typeQst from QUESTION join TYPEQUESTION on QUESTION.typeQst_id = TYPEQUESTION.idTypeQst WHERE idQst = ?");
+        $stmt->execute([$questionId]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $typeQst = $result['typeQst'];
         $stmt = $this->db->prepare("SELECT * FROM CHOIX WHERE question_id = ?");
         $stmt->execute([$questionId]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
         $choix = [];
         foreach ($result as $row) {
-            $choix[] = new Choix($row['idChoix'], $row['labelChoix'], $row['bonneReponse'],$row['question_id']);
+            $iscorrect = $row['bonneReponse'] == 1 ? true : false;
+            if ($typeQst == "radio") {
+                $choix[] = new Radio($row['idChoix'], $row['labelChoix'], $iscorrect, $row['question_id']);
+                continue;
+            }
+            else if ($typeQst == "checkbox") {
+                $choix[] = new Checkbox($row['idChoix'], $row['labelChoix'], $iscorrect, $row['question_id']);
+                continue;
+            }
+            else if ($typeQst == "text") {
+                $choix[] = new Text($row['idChoix'], $row['labelChoix'], $iscorrect, $row['question_id']);
+                continue;
+            }
         }
         
         return $choix;

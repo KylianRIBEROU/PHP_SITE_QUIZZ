@@ -3,10 +3,13 @@ declare(strict_types=1);
 
 namespace Modeles\Quizz;
 
+use Modeles\Interfaces\ToHtml;
+use Modeles\Interfaces\ToHtmlCorrection;
+
 /**
  * Class Choix
  */
-class Choix
+class Choix implements ToHtml, ToHtmlCorrection
 {
 
     /**
@@ -107,4 +110,34 @@ class Choix
         $this->id_question = $id_question;
     }
 
+    /**
+     * Retourne le code HTML du choix
+     * Ici c'est une fonction abstraite, elle doit être implémentée dans les classes filles
+     * @return string
+     */
+
+    public function toHtml(): string
+    {
+        return "";
+    }
+
+    /**
+     * Retourne le code HTML du choix en mode correction
+     * Ici c'est une fonction abstraite, elle doit être implémentée dans les classes filles
+     * @return string
+     */
+    public function toHtmlCorrection(): string
+    {
+        return "";
+    }
+
+    public function getTypeQuestionToHtlm(): string
+    {
+        return "";
+    }
+
+    public function isCorrect(array | string $reponses): bool
+    {
+        return false;
+    }
 }

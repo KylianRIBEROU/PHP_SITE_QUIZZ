@@ -24,24 +24,6 @@ class TypeQuestionBD {
         $stmt->execute([$typeQst]);
     }
 
-    public function getTypeQuestionById(int $typeQstId): Type {
-        $stmt = $this->db->prepare("SELECT * FROM TYPEQUESTION WHERE idTypeQst = ?");
-        $stmt->execute([$typeQstId]);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $result_type = $result['typeQst'];
-        if ($result === false) {
-            return null; // Aucun type trouvé avec cet ID
-        }
-        if ($result_type === 'text') {
-            $typeQuestion = new Text($result['idTypeQst']);
-        } elseif ($result_type === 'radio') {
-            $typeQuestion = new Radio($result['idTypeQst']);
-        } elseif ($result_type === 'checkbox') {
-            $typeQuestion = new Checkbox($result['idTypeQst']);
-        }
-        return $typeQuestion;
-    }
-
     public function updateTypeQuestion(int $typeQstId, string $typeQst): void {
         $stmt = $this->db->prepare("UPDATE TYPEQUESTION SET typeQst = ? WHERE idTypeQst = ?");
         $stmt->execute([$typeQst, $typeQstId]);
