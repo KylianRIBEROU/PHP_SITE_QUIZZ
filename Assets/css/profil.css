@@ -13,7 +13,6 @@ h2{
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    height: 100%;
     margin-top: 60px;
     margin-bottom: 30px;
 }
@@ -25,7 +24,6 @@ h2{
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-    border-right: 2px solid #000;
     height: 100%;
     flex-direction: column;
     gap: 30px;
@@ -37,11 +35,11 @@ h2{
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    border-left: 2px solid #000;
+    flex-wrap: nowrap;
     height: 100%;
     flex-direction: column;
     gap: 30px;
+    overflow-y: scroll;
 }
 
 .no-participation, .no-quizz{

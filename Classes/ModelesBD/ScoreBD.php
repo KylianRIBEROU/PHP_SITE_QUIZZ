@@ -35,6 +35,11 @@ class ScoreBD {
         $stmt->execute([$scoreId]);
     }
 
+    public function deleteScoresByQuizzId(int $quizzId): void {
+        $stmt = $this->db->prepare("DELETE FROM SCORE WHERE quizz_id = ?");
+        $stmt->execute([$quizzId]);
+    }
+
     public function getScoresByUserId(int $userId): array {
         $stmt = $this->db->prepare("SELECT * FROM SCORE WHERE user_id = ?");
         $stmt->execute([$userId]);

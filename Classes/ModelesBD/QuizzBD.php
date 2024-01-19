@@ -98,4 +98,11 @@ class QuizzBD {
             $this->deleteQuizz($row['idQuizz']);
         }
     }
+
+    public function getLastIdQuizz(): int {
+        $stmt = $this->db->prepare("SELECT MAX(idQuizz) FROM QUIZZ");
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return (int) $result['MAX(idQuizz)'];
+    }
 }

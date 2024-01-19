@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kik's quizz</title>
     <link rel="stylesheet" href="/Assets/css/base.css">
-    <link rel="stylesheet" href="/Assets/css/quizz.css">
+    <link rel="stylesheet" href="/Assets/css/connexion.css">
+    <link rel="stylesheet" href="/Assets/css/profil.css">
 </head>
 <body>
-
 
 <?php
 // SPL autoloader
@@ -20,15 +20,5 @@ use App\KiksQuizz;
 
 session_start();
 
-// Initialisation de la class qui gère l'application
 $app = new KiksQuizz();
-
-$idQuizz = $_GET['idQuizz'];
-$lesReponses = $_POST;
-
-$app->afficheCorrection($idQuizz, $lesReponses);
-
-?>
-
-</body>
-</html>
+$app->deleteQuizz($_GET['idQuizz']);

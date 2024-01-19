@@ -18,9 +18,9 @@ class QuestionBD {
         $this->choixBD = $choixBD;
     }
 
-    public function createQuestion(string $titreQst, int $quizzId): void {
-        $stmt = $this->db->prepare("INSERT INTO QUESTION (titreQst, quizz_id) VALUES (?, ?)");
-        $stmt->execute([$titreQst, $quizzId]);
+    public function createQuestion(string $titreQst, int $quizzId, int $typeQstId): void {
+        $stmt = $this->db->prepare("INSERT INTO QUESTION (labelQst, quizz_id, typeQst_id) VALUES (?, ?, ?)");
+        $stmt->execute([$titreQst, $quizzId, $typeQstId]);
     }
 
     public function getQuestionById(int $questionId): Question {
@@ -69,5 +69,12 @@ class QuestionBD {
             $questions[] = new Question($row['idQst'], $row['labelQst'], $row['quizz_id']);
         }
         return $questions;
+    }
+
+    public function getLastIdQuestion(): int {
+        $stmt = $this->db->prepare("SELECT MAX(idQst) FROM QUESTION");
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return (int) $result['MAX(idQst)'];
     }
 }

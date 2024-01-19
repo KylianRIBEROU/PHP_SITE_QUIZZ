@@ -52,7 +52,7 @@ echo '<div class="container-profil">';
                         }else{
                             echo '<p class="moyenne-score">'. $this->dbManager->getScoreBD()->getMoyenneByQuizzId($unQuizz->getId_quizz()) .'/'.count($lesQuestions).'</p>';
                         }
-                        echo '<button class="btn-red">Supprimer</button>';
+                        echo '<button class="btn-red" onclick="window.location.href=\'supprimerQuizz.php?idQuizz='.$unQuizz->getId_quizz().'\'">Supprimer</button>';
                     echo '</div>';
                 echo '</div>';
             }

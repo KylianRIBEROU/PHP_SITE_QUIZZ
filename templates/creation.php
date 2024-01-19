@@ -1,0 +1,62 @@
+<?php
+declare(strict_types=1);
+
+include 'templates/navBar.php';
+
+echo '<div class="container-crea">';
+    echo '<form action="/creation.php" method="post">';
+        echo '<div class="top">';
+            echo '<div class="titre-crea">';
+                echo '<p class="nb-question">Titre de votre quizz :</p>';
+                echo '<input type="text" class="input-crea" name="titre" placeholder="Titre du quizz">';
+            echo '</div>';
+            echo '<div class="description-crea">';
+                echo '<p class="nb-question">Description de votre quizz :</p>';
+                echo '<textarea class="input-crea-area" name="description" placeholder="Description du quizz"></textarea>';
+            echo '</div>';
+            echo '<div class="type-crea">';
+                echo '<p class="nb-question">Type de quizz :</p>';
+                echo '<select class="input-crea-combo" name="typeQuizz">';
+                    foreach ($lesTypes as $type) {
+                        echo '<option value="'.$type->getIdType().'">'.$type->getTypeQ().'</option>';
+                    }
+                echo '</select>';
+            echo '</div>';
+        echo '</div>';
+        echo '<div class="questions" id="questions">';
+            echo '<div class="question">';
+                echo '<div class="divv">';
+                    echo '<p class="nb-question p-divv">Type de question :</p>';
+                    echo '<select class="input-crea-combo" name="typeQuestion1" id="typeQuestion1">';
+                        echo '<option value="1">QCM</option>';
+                        echo '<option value="2">QCS</option>';
+                        echo '<option value="3">Réponse ouverte</option>';
+                    echo '</select>';
+                echo '</div>';
+                echo '<div class="divv">';
+                    echo '<p class="nb-question p-divv">Votre question :</p>';
+                    echo '<input type="text" class="input-crea" name="labelQuestion1" placeholder="Votre questions">';
+                echo '</div>';
+                echo '<div class="reponses" id="reponses1">';
+                    echo "<p class='nb-question p-divv2'>Les choix :</p>";
+                    echo "<div class='form-check'>";
+                        echo "<input class='form-check-input' type='radio' value='1' name='choixQuestions1[]'>";
+                        echo '<input type="text" class="input-crea-choix" name="labelChoix1Questions1" placeholder="Votre choix">';
+                    echo "</div>";
+                    echo "<div class='form-check'>";
+                        echo "<input class='form-check-input' type='radio' value='2' name='choixQuestions1[]'>";
+                        echo '<input type="text" class="input-crea-choix" name="labelChoix2Questions1" placeholder="Votre choix">';
+                    echo "</div>";
+                    echo "<div class='btn-add-choix'>";
+                        echo '<button type="button" id="btnAddChoix1" class="btn btn-choix">Ajouter un choix</button>';
+                    echo "</div>";
+                echo '</div>';
+            echo '</div>';
+        echo '</div>';
+        echo '<div class="btn-quizz">';
+            echo '<input type="hidden" id="nbQuestion" name="nbQuestion" value="1">';
+            echo '<button type="button" id="btnQuestion" class="btn btn-val">Ajouter une question</button>';
+            echo '<button type="submit" class="btn btn-val2">Créer le quizz</button>';
+        echo '</div>';
+    echo '</form>';
+echo '</div>';

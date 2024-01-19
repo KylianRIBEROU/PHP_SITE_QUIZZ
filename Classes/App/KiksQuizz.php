@@ -41,6 +41,12 @@ class KiksQuizz {
         return $this->user !== null;
     }
 
+    public function deleteQuizz(int $idQuizz): void {
+        $this->dbManager->getScoreBD()->deleteScoresByQuizzId($idQuizz);
+        $this->dbManager->getQuizzBD()->deleteQuizz($idQuizz);
+        $this->afficheConnexion();
+    }
+
     public function disconnectUser(): void {
         $this->user = null;
     }
@@ -126,5 +132,68 @@ class KiksQuizz {
         }
         $this->dbManager->getScoreBD()->createScore($score, $this->user->getId(), $idQuizz);
         require 'templates/correction.php';
+    }
+
+    public function afficheCreationQuizz(): void {
+        $lesTypes = $this->dbManager->getTypeQuizzBD()->getAllTypeQuizz();
+        require 'templates/creation.php';
+    }
+
+
+    public function creerQuizz(array $lesInfos): void {
+        $nbQuestion = $lesInfos['nbQuestion'];
+        $titre = $lesInfos['titre'];
+        $description = $lesInfos['description'];
+        $typeQuizz = $lesInfos['typeQuizz'];
+        $lesQuesstions = [];
+        for ($i=1; $i <= $nbQuestion; $i++) {
+            $typeQuestion = $lesInfos['typeQuestion'.$i];
+            $labelQuestion = $lesInfos['labelQuestion'.$i];
+            $j = 1;
+            if ($typeQuestion == 3) {
+                $leChoix = $lesInfos['choixQuestions'.$i];
+                $lesQuesstions[] = [$typeQuestion, $labelQuestion, $leChoix];
+            }
+            else{
+                $lesChoix = [];
+                while (isset($lesInfos['labelChoix'.$j.'Questions'.$i])) {
+                    $labelChoix = $lesInfos['labelChoix'.$j.'Questions'.$i];
+                    $isCorrect = false;
+                    if (isset($lesInfos['choixQuestions'.$i])) {
+                        foreach ($lesInfos['choixQuestions'.$i] as $choix) {
+                            if ($choix == $j) {
+                                $isCorrect = true;
+                            }
+                        }
+                    }
+                    
+                    $lesChoix[] = [$labelChoix, $isCorrect];
+                    $j++;
+                }
+                $lesQuesstions[] = [$typeQuestion, $labelQuestion, $lesChoix];
+            }
+        }
+        // Affichage des infos du quizz
+        $this->dbManager->getQuizzBD()->createQuizz($titre, $description, $typeQuizz, $this->user->getId());
+        $idQuizz = $this->dbManager->getQuizzBD()->getLastIdQuizz();
+        foreach ($lesQuesstions as $question) {
+            $typeQuestion = $question[0];
+            $labelQuestion = $question[1];
+            $this->dbManager->getQuestionBD()->createQuestion($labelQuestion, $idQuizz, $typeQuestion);
+            $idQuestion = $this->dbManager->getQuestionBD()->getLastIdQuestion();
+            if ($typeQuestion == 3) {
+                $leChoix = $question[2];
+                $this->dbManager->getChoixBD()->createChoix($leChoix, $idQuestion, true);
+            }
+            else{
+                $lesChoix = $question[2];
+                foreach ($lesChoix as $choix) {
+                    $labelChoix = $choix[0];
+                    $isCorrect = $choix[1];
+                    $this->dbManager->getChoixBD()->createChoix($labelChoix, $idQuestion, $isCorrect);
+                }
+            }
+        }
+        $this->afficheAccueil();
     }
 }
