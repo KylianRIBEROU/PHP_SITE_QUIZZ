@@ -6,21 +6,50 @@ namespace ModelesBD;
 
 use PDO;
 use Modeles\Quizz\Quizz;
+/**
+ * Class QuizzBD
+ * @package ModelesBD 
+ * Cette classe gère les requêtes SQL relatives aux quizz
+ */
 class QuizzBD {
+
+    /**
+     * @var PDO
+     */
     private $db;
 
+    /**
+     * @var QuestionBD
+     */
     private $questionBD;
 
+    /**
+     * QuizzBD constructeur
+     * @param PDO $db
+     * @param QuestionBD $questionBD
+     */
     public function __construct(PDO $db, QuestionBD $questionBD) {
         $this->db = $db;
         $this->questionBD = $questionBD;
     }
 
+    /**
+     * Crée un quizz dans la base de données
+     * @param string $titreQuizz
+     * @param string $description
+     * @param int $typeId
+     * @param int $userId
+     */
     public function createQuizz(string $titreQuizz, string $description, int $typeId, int $userId): void {
         $stmt = $this->db->prepare("INSERT INTO QUIZZ (titre_quizz, description, type_id, user_id) VALUES (?, ?, ?, ?)");
         $stmt->execute([$titreQuizz, $description, $typeId, $userId]);
     }
 
+    /**
+     * Renvoie un quizz à partir de son ID
+     * @param int $quizzId
+     * @return Quizz|null
+     */
     public function getQuizzById(int $quizzId): Quizz {
         $stmt = $this->db->prepare("SELECT * FROM QUIZZ WHERE idQuizz = ?");
         $stmt->execute([$quizzId]);
@@ -32,6 +61,10 @@ class QuizzBD {
         return $quizz;
     }
 
+    /**
+     * Renvoie une liste avec tous les quizz
+     * @return array
+     */
     public function getAllQuizz(): array {
         $stmt = $this->db->prepare("SELECT * FROM QUIZZ");
         $stmt->execute();
@@ -47,6 +80,8 @@ class QuizzBD {
 
     /**
      * Renvoie une liste avec tous les quizz créés par un utilisateur
+     * @param int $userId
+     * @return array
      */
     public function getQuizzsByUserId(int $userId): array {
         $stmt = $this->db->prepare("SELECT * FROM QUIZZ WHERE user_id = ?");
@@ -63,6 +98,8 @@ class QuizzBD {
 
     /**
      * Donne le nombre de quizz créés par un utilisateur
+     * @param int $userId
+     * @return int
      */
     public function countQuizzsByUserId(int $userId): int {
         $stmt = $this->db->prepare("SELECT COUNT(*) FROM QUIZZ WHERE user_id = ?");
@@ -71,7 +108,14 @@ class QuizzBD {
         return (int) $result['COUNT(*)'];
     }
 
-    
+    /**
+     * Met a jour un quizz dans la base de données
+     * @param int $quizzId
+     * @param string $titreQuizz
+     * @param string $description
+     * @param int $typeId
+     * @param int $userId
+     */
     public function updateQuizz(int $quizzId, string $titreQuizz, string $description, int $typeId, int $userId): void {
         $stmt = $this->db->prepare("UPDATE QUIZZ SET titre_quizz = ?, description = ?, type_id = ?, user_id = ? WHERE idQuizz = ?");
         $stmt->execute([$titreQuizz, $description, $typeId, $userId, $quizzId]);
@@ -79,6 +123,10 @@ class QuizzBD {
 
 
 
+    /**
+     * Supprime un quizz de la base de données
+     * @param int $quizzId
+     */
     public function deleteQuizz(int $quizzId): void {
         // delete en cascade les questions et les choix
         $this->questionBD->deleteQuestionsByQuizzId($quizzId);
@@ -87,6 +135,10 @@ class QuizzBD {
         $stmt->execute([$quizzId]);
     }
 
+    /**
+     * Supprime tous les quizz d'un utilisateur
+     * @param int $userId
+     */
     public function deleteQuizzByUserId(int $userId): void {
         // récupérer chaque id de quizz associé à l'utilisateur
         $stmt = $this->db->prepare("SELECT idQuizz FROM QUIZZ WHERE user_id = ?");
@@ -99,6 +151,10 @@ class QuizzBD {
         }
     }
 
+    /**
+     * Renvoie l'ID du dernier quizz créé
+     * @return int
+     */
     public function getLastIdQuizz(): int {
         $stmt = $this->db->prepare("SELECT MAX(idQuizz) FROM QUIZZ");
         $stmt->execute();
