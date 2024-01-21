@@ -1,0 +1,38 @@
+[
+    {
+        "uuid": "8030a37e-947b-11ee-b9d1-0242ac120002",
+        "type": "radio",
+        "label": "Combien de coupe du mon de foot a remporté l'équipe de France ?",
+        "choices": [
+            "1",
+            "2",
+            "3"
+        ],
+        "correct": "2",
+        "score": 1
+    },
+    {
+        "uuid": "8d7f7078-947b-11ee-b9d1-0242ac120002",
+        "type": "checkbox",
+        "label": "En quelle année l'équipe de France de foot a-t-elle remporté la coupe du monde ?",
+        "choices": [
+            "1998",
+            "2006",
+            "2018"
+        ],
+        "correct": [
+            "1998",
+            "2018"
+        ],
+        "score": 1
+    },
+    {
+        "uuid": "8d7f7078-947b-11ee-b9d1-0242ac120003",
+        "type": "ouverte",
+        "label": "Quelle est la capitale de la France ?",
+        "choices": [
+        ],
+        "correct": "Paris",
+        "score": 1
+    }
+]
