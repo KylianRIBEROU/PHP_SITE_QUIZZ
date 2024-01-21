@@ -41,8 +41,29 @@ Pour utiliser la base de données, il faut décommenter la ligne 14 du fichier `
 Et modifier les informations de connexion à la base de données dans le fichier `v2/index.php` ligne 14.
 
 
+L'application intègre 3 types de questions :
+
+- QCM (radio)
+- QCM (checkbox)
+- Réponse libre (text)
+
+Un score est calculé à la fin du quizz et affiché à l'utilisateur.
+Pour les questions de type QCM (checkbox), une pondération est mise en place.
+
 ## Version 1
 
 Dans le repertoire `v1` vous trouverez la version 1 du projet qui est plus complexe et qui ne respecte pas les consignes.
 
 
+Pour lancer le projet, il faut dans un premier temps configurer la base de données en créant une base de données avec le script de création dans les fichiers create.sql et insert.sql `v1/ressources/db/`.
+
+Puis configuré les informations de connexion à la base de données dans le fichier `v1/_inc/properties.json`.
+
+Ensuite il faut lancer la commande `php -S localhost:8000` et se rendre sur l'adresse `localhost:8000` dans votre navigateur.
+
+Dans cette application, vous pouvez retrover les fonctionnalités suivantes :
+
+Gestion des utilisateurs avec un système de connexion et d'inscription.
+Les utilisateurs peuvent créer des quizz.
+Un utilisateur a accès a ses quizzs, voir les statistiques et peut les supprimer.
+Il a accès à l'histoire de ses participations aux différents quizzs. 

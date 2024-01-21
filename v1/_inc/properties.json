@@ -1,0 +1,6 @@
+{
+    "database_host": "localhost",
+    "database_user": "baptched",
+    "database_password": "baptched",
+    "database_name": "BD_PHP_QUIZZ"
+}
